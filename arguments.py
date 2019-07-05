@@ -12,8 +12,6 @@ parser.add_argument('-s', '--separator',    help='separator to use when splittin
 parser.add_argument('-o', '--online_mode',  help='do not exit when entire file read. Set this option when processing a file that is being written by external source.', action='store_true')
 
 
-# [$time_local] $remote_addr (#$connection_requests) "$request_method $request_truncated HTTP/1.1" request_time: $request_time status: $status bytes: $bytes_sent "$request" to: $upstream_addr upstream_response_time: $upstream_response_time';
-
 class Arguments(object):
     interval = None
     codes = None

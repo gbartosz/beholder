@@ -60,3 +60,6 @@ columns `number_of_POST_requests` and `average_POST_response_time` will match on
 Specifying `POST` as an explicit method to monitor, does not exclude it from regex-matched method to monitor (`P.{2,}`).
 
 Same rules apply to `METHODS` and `ENDPOINTS`.
+
+# online mode
+By default beholder will process entire log file and exit. If you want to monitor your web-server in real-time enable `-o` option to read events appended to the log file.
