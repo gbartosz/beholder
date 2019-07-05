@@ -1,0 +1,10 @@
+
+- There can be a lag as long as twice the interval in corner cases
+- In cases of poor logging density, consecutive intervals may be separated
+- Doesn't answear the question of WHERE the problem is. Helps to answear WHEN.
+- Hardcoded regex that matches only specific nginx log of format:
+a snippet from nginx.conf:
+log_format beholder_log_format '[$time_local] $remote_addr (#$connection_requests) "$request_method $request_truncated HTTP/1.1" request_time: $request_time status: $status bytes: $bytes_sent "$request" to: $upstream_addr upstream_response_time: $upstream_response_time';
+- very poor set of stats
+- quite a bit of code-repetitions in interval_stats_collector
+- no option to stop when processed entire file
