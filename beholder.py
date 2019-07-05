@@ -12,8 +12,8 @@ class Beholder:
         try:
             StatsCollector.append(Log(line))
         except Exception as e:
-            print('Exception while processing line:\n{}\n{}'.format(line, e))
-            raise
+            # print('Exception while processing line:\n{}\n{}'.format(line, e))
+            pass
 
     @classmethod
     def lines_generator(cls, file):

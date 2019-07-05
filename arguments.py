@@ -10,6 +10,8 @@ parser.add_argument('-f', '--filename', help='path to observed log file', action
 parser.add_argument('-c', '--codes', help='SEPARATOR separated list of http response codes to monitor. Regex expressions are supported.', action='store', default=None)
 parser.add_argument('-m', '--methods', help='SEPARATOR separated list of http methods to monitor. Regex expressions are supported.', action='store', default=None)
 parser.add_argument('-e', '--endpoints', help='SEPARATOR separated list of endpoints to monitor. Regex expressions are supported.', action='store', default=None)
+parser.add_argument('-a', '--client_addresses', help='SEPARATOR separated list of client addresses to monitor. Regex expressions are supported.', action='store', default=None)
+parser.add_argument('-u', '--upstream_addresses', help='SEPARATOR separated list of upstream addresses to monitor. Regex expressions are supported.', action='store', default=None)
 parser.add_argument('-s', '--separator', help='separator to use when splitting CODES and METHODS. Colon (;) by default', action='store', default=';')
 parser.add_argument('-o', '--online_mode', help='do not exit when entire file read. Set this option when processing a file that is being written by external source.', action='store_true')
 
@@ -26,6 +28,18 @@ class Arguments:
     endpoints = None
     separator = None
     online_mode = False
+    client_addresses = None
+    upstream_addresses = None
+
+    @staticmethod
+    def categories():
+        return {
+            "client_address" : Arguments.client_addresses,
+            "method" : Arguments.methods,
+            "endpoint" : Arguments.endpoints,
+            "status_code" : Arguments.codes,
+            "upstream_address" : Arguments.upstream_addresses,
+        }
 
     @staticmethod
     def parse():
@@ -37,4 +51,6 @@ class Arguments:
         Arguments.codes = argument_list(args.codes)
         Arguments.methods = argument_list(args.methods)
         Arguments.endpoints = argument_list(args.endpoints)
+        Arguments.client_addresses = argument_list(args.client_addresses)
+        Arguments.upstream_addresses = argument_list(args.upstream_addresses)
         Arguments.online_mode = args.online_mode
