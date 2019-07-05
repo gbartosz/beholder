@@ -20,6 +20,8 @@ def lines_generator(file):
         if line:
             yield line
         else:
+            if not Arguments.online_mode:
+                return
             sleep(Arguments.interval)
 
 
