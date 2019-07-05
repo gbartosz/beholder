@@ -1,10 +1,10 @@
-# dntrc
+# Beholder
 Process web server log file and gather information about `number of requests` and `average response time` per category per specified time interval.
 
-# interval
+# Interval
 Beholder accepts an `interval` as an input parameter. It groups log entries in batches of `interval` seconds length to count requests and average response times per batch.
 
-# categories
+# Categories
 If you run this script with `-h` option you will get a list of currently supported categories. Basic categories are:
 
 `-c` (response status `CODES`)
@@ -61,5 +61,5 @@ Specifying `POST` as an explicit method to monitor, does not exclude it from reg
 
 Same rules apply to `METHODS` and `ENDPOINTS`.
 
-# online mode
-By default beholder will process entire log file and exit. If you want to monitor your web-server in real-time enable `-o` option to read events appended to the log file.
+# Online mode
+By default `beholder` will process entire log file and exit. If you want to monitor your web-server in real-time enable `-o` option to read events appended to the log file.
