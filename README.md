@@ -13,6 +13,10 @@ If you run this script with `-h` option you will get a list of currently support
 
 `-e` (`ENDPOINTS` urls)
 
+`-u` (`UPSTREAM_ADDRESSES`)
+
+`-a` (`CLIENT_ADDRESSES`)
+
 Beholder supports multiple categories as well as multiple values per category.
 
 # Example commands
@@ -59,7 +63,12 @@ columns `number_of_POST_requests` and `average_POST_response_time` will match on
 
 Specifying `POST` as an explicit method to monitor, does not exclude it from regex-matched method to monitor (`P.{2,}`).
 
-Same rules apply to `METHODS` and `ENDPOINTS`.
+Same rules apply to other categories.
 
 # Online mode
 By default `beholder` will process entire log file and exit. If you want to monitor your web-server in real-time enable `-o` option to read events appended to the log file.
+
+# Separator
+Default separator of multiple values per category is a colon (`;`). If you need to use colon in regular expression, a conflict occurs. To resolve this issue change default separator using `-s` option.
+
+Output column separation disregards this setting and always uses a colon.
