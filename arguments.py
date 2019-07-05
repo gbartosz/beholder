@@ -39,7 +39,7 @@ class Arguments:
             "endpoint" : Arguments.endpoints,
             "status_code" : Arguments.codes,
             "upstream_address" : Arguments.upstream_addresses,
-        }
+        }.items()
 
     @staticmethod
     def parse():

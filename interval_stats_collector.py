@@ -18,15 +18,16 @@ class IntervalStatsCollector:
         req_cnt_sum = {}
         avg_resp_time = {}
 
-        for category, value_list in Arguments.categories().items():
+        for category, value_list in Arguments.categories():
             for value in value_list:
                 req_cnt_sum[category+value] = 0
                 avg_resp_time[category+value] = 0.
 
+        #TODO: Improve readability!
         for log in self.logs:
             upstream_summary_response_time += log.request_time
 
-            for category, value_list in Arguments.categories().items():
+            for category, value_list in Arguments.categories():
                 for value in value_list:
                     if re.match(value, getattr(log, category)):
                         req_cnt_sum[category+value] += 1
@@ -48,9 +49,9 @@ class IntervalStatsCollector:
                    'req_cnt',
                    'avg_resp_time']
 
-        for value_list in Arguments.categories().values():
+        for category, value_list in Arguments.categories():
             for value in value_list:
-                columns.append('req_cnt_{}'.format(value))
-                columns.append('avg_resp_time_{}'.format(value))
+                columns.append('req_cnt_{}_{}'.format(category, value))
+                columns.append('avg_resp_time_{}_{}'.format(category, value))
 
         print(';'.join(columns))
