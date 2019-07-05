@@ -1,8 +1,11 @@
 # dntrc
 Process web server log file and gather information about `number of requests` and `average response time` per category per specified time interval.
 
+# interval
+Beholder accepts an `interval` as an input parameter. It groups log entries in batches of `interval` seconds length to count requests and average response times per batch.
+
 # categories
-If you run this script with `-h` option you will get currently supported categories. Basic categories are:
+If you run this script with `-h` option you will get a list of currently supported categories. Basic categories are:
 
 `-c` (response status `CODES`)
 
@@ -10,14 +13,16 @@ If you run this script with `-h` option you will get currently supported categor
 
 `-e` (`ENDPOINTS` urls)
 
-Beholder supports multiple categories as well as multiple values of a single category.
+Beholder supports multiple categories as well as multiple values per category.
 
 # Example commands
 <code>python beholder.py -i 600 -f file.log -c 499 > output.csv</code>
 
-creates output.csv file with column headers:
+processes file.log, groups logs in batches of 600 seconds, calculates statistics per batch and creates output.csv file with column headers:
 
 <code>datetime;number_of_requests;average_response_time;number_of_requests_with_response_499;average_499_response_time</code>
+
+and a single row per 600s batch of log entries.
 
 You can specify multiple codes:
 
