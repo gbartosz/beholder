@@ -11,7 +11,7 @@ class StatsCollector:
 
     @classmethod
     def append(cls, log):
-        if not cls.interval_stats_collector or log.datetime > cls.current_interval_end_datetime:
+        if not cls.interval_stats_collector or log.datetime >= cls.current_interval_end_datetime:
             cls.start_new_interval(log.datetime)
         cls.interval_stats_collector.append(log)
 
@@ -22,7 +22,11 @@ class StatsCollector:
 
     @classmethod
     def start_new_interval(cls, interval_start_datetime):
-        if cls.interval_stats_collector:
-            cls.interval_stats_collector.close()
+        cls.close()
         cls.current_interval_end_datetime = interval_start_datetime + timedelta(seconds=cls.interval)
         cls.interval_stats_collector = IntervalStatsCollector(interval_start_datetime)
+
+    @classmethod
+    def close(cls):
+        if cls.interval_stats_collector:
+            cls.interval_stats_collector.close()

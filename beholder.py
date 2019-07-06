@@ -34,6 +34,7 @@ class Beholder:
                 cls.parse(line.strip())
         except KeyboardInterrupt:
             pass
+        StatsCollector.close()
 
 
 if __name__ == '__main__':

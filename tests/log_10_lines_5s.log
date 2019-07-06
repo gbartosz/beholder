@@ -1,0 +1,10 @@
+[06/Jul/2019:13:27:21 +0000] 44.127.81.200 (#1) "PUT /items HTTP/1.1" request_time: 1.700 status: 500 bytes: 112 "PUT /items HTTP/1.1" to: 137.12.28.206:9798 upstream_response_time: 0.670
+[06/Jul/2019:13:27:21 +0000] 200.44.250.249 (#1) "GET /product/id/user HTTP/1.1" request_time: 0.395 status: 400 bytes: 112 "GET /product/id/user HTTP/1.1" to: 93.112.73.160:5216 upstream_response_time: 0.244
+[06/Jul/2019:13:27:22 +0000] 22.69.193.193 (#1) "HEAD /items/parts/id HTTP/1.1" request_time: 8.778 status: 502 bytes: 112 "HEAD /items/parts/id HTTP/1.1" to: 185.117.206.14:7567 upstream_response_time: 7.296
+[06/Jul/2019:13:27:22 +0000] 147.2.30.171 (#1) "POST /items HTTP/1.1" request_time: 0.159 status: 201 bytes: 112 "POST /items HTTP/1.1" to: 172.4.92.156:4558 upstream_response_time: 0.015
+[06/Jul/2019:13:27:23 +0000] 30.92.126.226 (#1) "PUT /product/id/user HTTP/1.1" request_time: 3.997 status: 201 bytes: 112 "PUT /product/id/user HTTP/1.1" to: 1.28.22.143:1867 upstream_response_time: 1.605
+[06/Jul/2019:13:27:23 +0000] 52.173.61.4 (#1) "PATCH /product/id/user HTTP/1.1" request_time: 2.543 status: 400 bytes: 112 "PATCH /product/id/user HTTP/1.1" to: 90.95.152.149:3707 upstream_response_time: 1.787
+[06/Jul/2019:13:27:24 +0000] 95.132.140.195 (#1) "PATCH /product HTTP/1.1" request_time: 0.395 status: 200 bytes: 112 "PATCH /product HTTP/1.1" to: 239.213.177.210:3380 upstream_response_time: 0.257
+[06/Jul/2019:13:27:24 +0000] 131.119.209.8 (#1) "PUT /items HTTP/1.1" request_time: 0.010 status: 201 bytes: 112 "PUT /items HTTP/1.1" to: 105.212.238.47:8369 upstream_response_time: 0.004
+[06/Jul/2019:13:27:25 +0000] 226.222.141.16 (#1) "OPTION /items HTTP/1.1" request_time: 2.762 status: 201 bytes: 112 "OPTION /items HTTP/1.1" to: 165.227.242.101:9974 upstream_response_time: 1.632
+[06/Jul/2019:13:27:25 +0000] 147.25.40.243 (#1) "OPTION /user/id HTTP/1.1" request_time: 1.263 status: 404 bytes: 112 "OPTION /user/id HTTP/1.1" to: 51.68.112.168:5510 upstream_response_time: 0.986
