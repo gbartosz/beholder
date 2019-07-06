@@ -3,10 +3,25 @@ import re
 from datetime import datetime
 from arguments import Arguments
 
+"""Regular expression that matches single entry in processed log file"""
 PATTERN = r'\[(\d{2}\/\S{3}\/\d{4}\:\d{2}:\d{2}:\d{2}\ \+\d{4})\]\ (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})[^\"]*\"(\S*)\s(\S*)\s\S*\srequest_time' \
           r':\s(\S*)\sstatus:\s(\S*)\sbytes:\s\S*\s"[^"]*"\sto:\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,4}|\-)\supstream_response_time:\s(\S*)'
 
 
+"""Generator that yields tuples of log attribute and regex pattern looked for
+
+Examples:
+if `-m 'GET;D.*' is specified as an argument, this generator yields:
+    ('GET', 'method')
+    ('D.*', 'method')
+if `-c '200;4..' -e '/sample/endpoint' -a 0.0.0.0:\d{4}` is specified, categories yields:
+    ('200', 'status_code')
+    ('4..', 'status_code')
+    ('/sample/endpoint', 'endpoint')
+    ('0.0.0.0:\d{4}', 'client_address')
+
+This way you can access getattr(log_object, log_attribute_name) and check if it matches regular expression regex_pattern
+"""
 def categories():    
     CATEGORIES = {
         "client_address" : Arguments.client_addresses,
@@ -20,6 +35,10 @@ def categories():
                 yield regex_pattern, log_attribute_name
 
 
+"""Defines a structure looked for in each log entry
+
+If you need to support any other log formats - this file is where you start.
+"""
 class Log:
 
     def __init__(self, line):

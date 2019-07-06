@@ -2,6 +2,15 @@
 import re
 
 
+"""Aggregates response time of logs of matching category.
+
+Default aggregator - without regex_pattern and log_attribute_name aggregates
+response time for every log entry processed.
+If regex_pattern and log_attribute_name are specified, only matching logs are
+aggregated.
+
+If you want to add more statistics per category - you're in the right place.
+"""
 class Aggregator:
 
     def __init__(self, regex_pattern=None, log_attribute_name=None):

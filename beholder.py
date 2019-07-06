@@ -4,9 +4,13 @@ from log import Log
 from stats_collector import StatsCollector
 from time import sleep
 
+"""Processes log file line by line
 
+Opens a filename and reads it line by line, feeding those lines to StatsCollector
+If Arguments.online_mode enabled, then processing never ends and Beholder awaits 
+more lines to be appended to processed file.
+"""
 class Beholder:
-
     @classmethod
     def parse(cls, line):
         try:
@@ -35,6 +39,10 @@ class Beholder:
         except KeyboardInterrupt:
             pass
         StatsCollector.close()
+        try:
+            file.close()
+        except:
+            pass
 
 
 if __name__ == '__main__':

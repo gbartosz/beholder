@@ -20,6 +20,7 @@ def argument_list(arg):
     return [a.strip() for a in arg.split(Arguments.separator)] if arg else []
 
 
+"""Parses input arguments and stores them"""
 class Arguments:
     interval = None
     codes = None
