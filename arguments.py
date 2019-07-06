@@ -32,16 +32,6 @@ class Arguments:
     upstream_addresses = None
 
     @staticmethod
-    def categories():
-        return {
-            "client_address" : Arguments.client_addresses,
-            "method" : Arguments.methods,
-            "endpoint" : Arguments.endpoints,
-            "status_code" : Arguments.codes,
-            "upstream_address" : Arguments.upstream_addresses,
-        }.items()
-
-    @staticmethod
     def parse():
         args = parser.parse_args()
 

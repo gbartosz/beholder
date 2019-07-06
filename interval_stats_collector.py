@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-import re
-from arguments import Arguments
+from log import categories
+from aggregator import Aggregator
 
 
 class IntervalStatsCollector:
@@ -13,34 +13,20 @@ class IntervalStatsCollector:
         self.logs.append(log)
 
     def close(self):
-        number_of_requests = len(self.logs)
-        upstream_summary_response_time = 0.0
-        req_cnt_sum = {}
-        avg_resp_time = {}
+        aggregators = [Aggregator()]
 
-        for category, value_list in Arguments.categories():
-            for value in value_list:
-                req_cnt_sum[category+value] = 0
-                avg_resp_time[category+value] = 0.
+        for regex_pattern, log_attribute_name in categories():
+            aggregators.append(Aggregator(regex_pattern, log_attribute_name))
 
-        #TODO: Improve readability!
         for log in self.logs:
-            upstream_summary_response_time += log.request_time
+            for aggregator in aggregators:
+                aggregator.process(log)
 
-            for category, value_list in Arguments.categories():
-                for value in value_list:
-                    if re.match(value, getattr(log, category)):
-                        req_cnt_sum[category+value] += 1
-                        avg_resp_time[category+value] += log.request_time
+        columns = [self.start_datetime]
 
-        columns = [self.start_datetime,
-                   number_of_requests,
-                   upstream_summary_response_time / number_of_requests]
-
-        for key, value in req_cnt_sum.items():
-            columns.append(value)
-            columns.append(avg_resp_time[key] / value if value else 0)
-
+        for aggregator in aggregators:
+            columns.extend(aggregator.columns())
+        
         print(';'.join(map(str, columns)))
 
     @staticmethod
@@ -49,9 +35,8 @@ class IntervalStatsCollector:
                    'req_cnt',
                    'avg_resp_time']
 
-        for category, value_list in Arguments.categories():
-            for value in value_list:
-                columns.append('req_cnt_{}_{}'.format(category, value))
-                columns.append('avg_resp_time_{}_{}'.format(category, value))
+        for regex_pattern, log_attribute_name in categories():
+            columns.append('req_cnt_{}_{}'.format(log_attribute_name, regex_pattern))
+            columns.append('avg_resp_time_{}_{}'.format(log_attribute_name, regex_pattern))
 
         print(';'.join(columns))

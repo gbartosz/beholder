@@ -6,6 +6,5 @@
 a snippet from nginx.conf:
 log_format beholder_log_format '[$time_local] $remote_addr (#$connection_requests) "$request_method $request_truncated HTTP/1.1" request_time: $request_time status: $status bytes: $bytes_sent "$request" to: $upstream_addr upstream_response_time: $upstream_response_time';
 - very poor set of stats
-- quite a bit of code-repetitions in interval_stats_collector
 - regex expects upstream port to be a max of 4 digits
 - min interval is 1.0

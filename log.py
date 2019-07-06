@@ -1,9 +1,23 @@
 # -*- coding: utf-8 -*-
 import re
 from datetime import datetime
+from arguments import Arguments
 
 PATTERN = r'\[(\d{2}\/\S{3}\/\d{4}\:\d{2}:\d{2}:\d{2}\ \+\d{4})\]\ (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})[^\"]*\"(\S*)\s(\S*)\s\S*\srequest_time' \
           r':\s(\S*)\sstatus:\s(\S*)\sbytes:\s\S*\s"[^"]*"\sto:\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,4}|\-)\supstream_response_time:\s(\S*)'
+
+
+def categories():    
+    CATEGORIES = {
+        "client_address" : Arguments.client_addresses,
+        "method" : Arguments.methods,
+        "endpoint" : Arguments.endpoints,
+        "status_code" : Arguments.codes,
+        "upstream_address" : Arguments.upstream_addresses,
+    }
+    for log_attribute_name, regex_patterns_list in CATEGORIES.items():
+            for regex_pattern in regex_patterns_list:
+                yield regex_pattern, log_attribute_name
 
 
 class Log:
