@@ -1,5 +1,5 @@
 # Beholder
-Process web server log file and gather information about `number of requests` and `average response time` per category per specified time interval.
+Process web server log file and gather information about `number of requests` and `average response time` per category per specified time interval. It specifically targets nginx in a reverse-proxy setup with specific log format (see log.py), but can easily be customized to other log formats.
 
 # Interval
 Beholder accepts an `interval` as an input parameter. It groups log entries in batches of `interval` seconds length to count requests and average response times per batch.
@@ -24,7 +24,7 @@ Beholder supports multiple categories as well as multiple values per category.
 
 processes file.log, groups logs in batches of 600 seconds, calculates statistics per batch and creates output.csv file with column headers:
 
-<code>datetime;number_of_requests;average_response_time;number_of_requests_with_response_499;average_499_response_time</code>
+<code>datetime;req_cnt;avg_resp_time;req_cnt_status_code_499;avg_resp_time_status_code_499</code>
 
 and a single row per 600s batch of log entries.
 
@@ -34,7 +34,7 @@ You can specify multiple codes:
 
 creates output.csv file with column headers:
 
-<code>datetime;number_of_requests;average_response_time;number_of_requests_with_response_499;average_499_response_time;number_of_requests_with_response_502;average_502_response_time</code>
+<code>datetime;req_cnt;avg_resp_time;req_cnt_status_code_499;avg_resp_time_status_code_499;req_cnt_status_code_502;avg_resp_time_status_code_502</code>
 
 You can also use regular expressions in code definitions:
 
@@ -42,7 +42,7 @@ You can also use regular expressions in code definitions:
 
 creates output.csv file with column headers:
 
-<code>datetime;number_of_requests;average_response_time;number_of_requests_with_response_499;average_499_response_time;number_of_requests_with_response_502;average_502_response_time;number_of_requests_with_response_2..;average_2.._response_time</code>
+<code>datetime;req_cnt;avg_resp_time;req_cnt_status_code_499;avg_resp_time_status_code_499;req_cnt_status_code_502;avg_resp_time_status_code_502;req_cnt_status_code_2..;avg_resp_time_status_code_2..</code>
 
 where `2..` matches all success response codes.
 
@@ -52,14 +52,14 @@ Same rules apply to specifying http `METHODS` and `ENDPOINTS` urls, so:
 
 creates output.csv file with column headers:
 
-<code>datetime;number_of_requests;average_response_time;number_of_requests_with_response_499;average_499_response_time;number_of_requests_with_response_502;average_502_response_time;number_of_requests_with_response_5..;average_5.._response_time;number_of_GET_requests;average_GET_response_time;number_of_P.{2,}_requests;average_P.{2,}_response_time;number_of_/isn/api/_requests;average_/isn/api/_response_time</code>
+<code>datetime;req_cnt;avg_resp_time;req_cnt_method_GET;avg_resp_time_method_GET;req_cnt_method_P.{2,};avg_resp_time_method_P.{2,};req_cnt_endpoint_/isn/api/;avg_resp_time_endpoint_/isn/api/;req_cnt_status_code_499;avg_resp_time_status_code_499;req_cnt_status_code_502;avg_resp_time_status_code_502;req_cnt_status_code_5..;avg_resp_time_status_code_5..</code>
 
 # Regexp rules
 If you provide 
 
 <code>-m 'POST;P.{2,}'</code> 
 
-columns `number_of_POST_requests` and `average_POST_response_time` will match only `POST` requests, while columns `number_of_P.{2,}_requests` and `average_P.{2,}_response_time` will match `POST`,`PUT` and `PATCH` requests. 
+columns `req_cnt_method_POST` and `avg_resp_time_method_POST` will match only `POST` requests, while columns `req_cnt_method_P.{2,}` and `avg_resp_time_method_P.{2,}` will match `POST`,`PUT` and `PATCH` requests. 
 
 Specifying `POST` as an explicit method to monitor, does not exclude it from regex-matched method to monitor (`P.{2,}`).
 
