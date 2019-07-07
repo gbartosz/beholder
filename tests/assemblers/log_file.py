@@ -50,16 +50,17 @@ class LogFileAssembler:
 		return self
 
 	def build(self):
+		logs = []
 		for i in range(self.number_of_logs):
-			print(LogAssembler().with_datetime(self.log_start_date+i*self.log_duration/self.number_of_logs)
-								.with_client_address(self.random_address())	
-								.with_method(self.random_method())
-								.with_endpoint(self.random_endpoint())
-								.with_request_time(self.random_duration())
-								.with_status_code(self.random_status_code())
-								.with_upstream_address(self.random_address() + self.random_port())
-								.with_upstream_response_time(factor_of_request_time=random())
-								.with_byte_count(randint(10,10000))
-								.with_request_number(randint(1,50))
-								.build())
-
+			logs.append(LogAssembler().with_datetime(self.log_start_date+i*self.log_duration/self.number_of_logs)
+									  .with_client_address(self.random_address())
+									  .with_method(self.random_method())
+									  .with_endpoint(self.random_endpoint())
+									  .with_request_time(self.random_duration())
+									  .with_status_code(self.random_status_code())
+									  .with_upstream_address(self.random_address() + self.random_port())
+									  .with_upstream_response_time(factor_of_request_time=random())
+									  .with_byte_count(randint(10,10000))
+									  .with_request_number(randint(1,50))
+									  .build())
+		return logs

@@ -284,10 +284,3 @@ class TestIntegration(unittest.TestCase):
         self.assertAlmostEqual(float(self.output_cell(5, 19+1)), 0, places=2)
         self.assertAlmostEqual(float(self.output_cell(6, 19+1)), 0, places=2)
         self.assertAlmostEqual(float(self.output_cell(7, 19+1)), 6.76, places=2)
-
-
-
-
-
-
-
