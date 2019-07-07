@@ -4,8 +4,7 @@ from datetime import datetime
 from arguments import Arguments
 
 """Regular expression that matches single entry in processed log file"""
-PATTERN = r'\[(\d{2}\/\S{3}\/\d{4}\:\d{2}:\d{2}:\d{2}\ \+\d{4})\]\ (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})[^\"]*\"(\S*)\s(\S*)\s\S*\srequest_time' \
-          r':\s(\S*)\sstatus:\s(\S*)\sbytes:\s\S*\s"[^"]*"\sto:\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}:\d{1,4}|\-)\supstream_response_time:\s(\S*)'
+PATTERN = r'\[(.*)\]\s(\S*)\s\(#(\S*)\)\s"(\S*)\s(\S*)\s([^"]*)"\srequest_time:\s(\S*)\sstatus:\s(\S*)\sbytes:\s(\S*)\s"[^"]*"\sto:\s(\S*)\supstream_response_time:\s(\S*)'
 
 
 """Generator that yields tuples of log attribute and regex pattern looked for
@@ -29,6 +28,9 @@ def categories():
         "endpoint" : Arguments.endpoints,
         "status_code" : Arguments.codes,
         "upstream_address" : Arguments.upstream_addresses,
+        "byte_count" : Arguments.byte_count,
+        "request_number": Arguments.request_number,
+        "protocol_version": Arguments.protocol_version
     }
     for log_attribute_name, regex_patterns_list in CATEGORIES.items():
             for regex_pattern in regex_patterns_list:
@@ -46,12 +48,15 @@ class Log:
 
         self.datetime = datetime.strptime(matches[0], '%d/%b/%Y:%H:%M:%S %z')
         self.client_address = matches[1]
-        self.method = matches[2]
-        self.endpoint = matches[3]
-        self.request_time = float(matches[4])
-        self.status_code = matches[5]
-        self.upstream_address = matches[6]
-        self.upstream_response_time = float(matches[7]) if matches[7] != '-' else 0.
+        self.request_number = matches[2]
+        self.method = matches[3]
+        self.endpoint = matches[4]
+        self.protocol_version = matches[5]
+        self.request_time = float(matches[6])
+        self.status_code = matches[7]
+        self.byte_count = matches[8]
+        self.upstream_address = matches[9]
+        self.upstream_response_time = float(matches[10]) if matches[10] != '-' else 0.
 
     #[02/Jul/2019:16:49:35 +0200] 83.210.40.132 (#1) "POST /mainapi/ HTTP/1.1" request_time: 1.396 status: 201 bytes: 959 "POST /mainapi/ID00611623 HTTP/1.1" to: 83.210.0.85:8000 upstream_response_time: 1.396'
     def __repr__(self):

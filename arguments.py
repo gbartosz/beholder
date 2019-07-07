@@ -12,6 +12,9 @@ parser.add_argument('-m', '--methods', help='SEPARATOR separated list of http me
 parser.add_argument('-e', '--endpoints', help='SEPARATOR separated list of endpoints to monitor. Regex expressions are supported.', action='store', default=None)
 parser.add_argument('-a', '--client_addresses', help='SEPARATOR separated list of client addresses to monitor. Regex expressions are supported.', action='store', default=None)
 parser.add_argument('-u', '--upstream_addresses', help='SEPARATOR separated list of upstream addresses to monitor. Regex expressions are supported.', action='store', default=None)
+parser.add_argument('-p', '--protocol_version', help='SEPARATOR separated list of protocol versions to monitor. Regex expressions are supported.', action='store', default=None)
+parser.add_argument('-b', '--bytes', help='SEPARATOR separated list of response byte count to monitor. Regex expressions are supported.', action='store', default=None)
+parser.add_argument('-n', '--request_number', help='SEPARATOR separated list of client request number to monitor. Regex expressions are supported.', action='store', default=None)
 parser.add_argument('-s', '--separator', help='separator to use when splitting CODES and METHODS. Colon (;) by default', action='store', default=';')
 parser.add_argument('-o', '--online_mode', help='do not exit when entire file read. Set this option when processing a file that is being written by external source.', action='store_true')
 
@@ -31,6 +34,9 @@ class Arguments:
     online_mode = False
     client_addresses = None
     upstream_addresses = None
+    byte_count = None
+    request_number = None
+    protocol_version = None
 
     @staticmethod
     def parse():
@@ -44,4 +50,7 @@ class Arguments:
         Arguments.endpoints = argument_list(args.endpoints)
         Arguments.client_addresses = argument_list(args.client_addresses)
         Arguments.upstream_addresses = argument_list(args.upstream_addresses)
+        Arguments.byte_count = argument_list(args.bytes)
+        Arguments.request_number = argument_list(args.request_number)
+        Arguments.protocol_version = argument_list(args.protocol_version)
         Arguments.online_mode = args.online_mode
