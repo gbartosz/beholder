@@ -41,6 +41,7 @@ def categories():
 """Defines a structure looked for in each log entry
 
 If you need to support any other log formats - this file is where you start.
+If you need to extract more fields from log entry - you need to add more categories in arguments.py as well.
 """
 class Log:
 
