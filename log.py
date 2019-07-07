@@ -22,6 +22,7 @@ if `-c '200;4..' -e '/sample/endpoint' -a 0.0.0.0:\d{4}` is specified, categorie
 This way you can access getattr(log_object, log_attribute_name) and check if it matches regular expression regex_pattern
 """
 def categories():    
+    #TODO: consider removing the dict if possible
     CATEGORIES = {
         "client_address" : Arguments.client_addresses,
         "method" : Arguments.methods,
@@ -60,13 +61,16 @@ class Log:
 
     #[02/Jul/2019:16:49:35 +0200] 83.210.40.132 (#1) "POST /mainapi/ HTTP/1.1" request_time: 1.396 status: 201 bytes: 959 "POST /mainapi/ID00611623 HTTP/1.1" to: 83.210.0.85:8000 upstream_response_time: 1.396'
     def __repr__(self):
-        return """[{} +0000] {} (#1) "{} {} HTTP/1.1" request_time: {:.3f} status: {} bytes: 112 "{} {} HTTP/1.1" to: {} upstream_response_time: {:.3f}"""\
+        return """[{} +0000] {} (#{}) "{} {} {}" request_time: {:.3f} status: {} bytes: {} "{} {} HTTP/1.1" to: {} upstream_response_time: {:.3f}"""\
                 .format(self.datetime.strftime('%d/%b/%Y:%H:%M:%S'),
                         self.client_address,
+                        self.request_number,
                         self.method,
                         self.endpoint,
+                        self.protocol_version,
                         self.request_time,
                         self.status_code,
+                        self.byte_count,
                         self.method,
                         self.endpoint,
                         self.upstream_address,

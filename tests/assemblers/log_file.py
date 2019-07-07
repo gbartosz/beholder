@@ -59,5 +59,7 @@ class LogFileAssembler:
 								.with_status_code(self.random_status_code())
 								.with_upstream_address(self.random_address() + self.random_port())
 								.with_upstream_response_time(factor_of_request_time=random())
+								.with_byte_count(randint(10,10000))
+								.with_request_number(randint(1,50))
 								.build())
 

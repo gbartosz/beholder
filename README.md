@@ -48,7 +48,7 @@ where `2..` matches all success response codes.
 
 Same rules apply to specifying http `METHODS` and `ENDPOINTS` urls, so:
 
-<code>python beholder.py -i 600 -f file.log -c '499;502;5..' -m 'GET;P.{2,}' -e '/isn/api/' > output.csv</code>
+<code>python beholder.py -i 600 -f file.log -c '499;502;5..' -m 'GET;P.{2,}' -e '\/isn\/api' > output.csv</code>
 
 creates output.csv file with column headers:
 

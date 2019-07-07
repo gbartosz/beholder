@@ -14,6 +14,9 @@ class LogAssembler:
         self.status_code = '200'
         self.upstream_address = '0.0.0.0:80'
         self.upstream_response_time = 1.0
+        self.protocol_version = 'HTTP/1.1'
+        self.byte_count = '2222'
+        self.request_number = '1'
 
     def with_datetime(self, value):
         self.datetime = value
@@ -43,6 +46,18 @@ class LogAssembler:
         self.upstream_address = value
         return self
         
+    def with_protocol_version(self, value):
+        self.protocol_version = value
+        return self
+        
+    def with_byte_count(self, value):
+        self.byte_count = value
+        return self
+        
+    def with_request_number(self, value):
+        self.request_number = value
+        return self
+        
     def with_upstream_response_time(self, value=None, factor_of_request_time=None):
         if factor_of_request_time:
             self.upstream_response_time = factor_of_request_time*self.request_time
@@ -62,4 +77,7 @@ class LogAssembler:
         log.status_code = self.status_code
         log.upstream_address = self.upstream_address
         log.upstream_response_time = self.upstream_response_time
+        log.protocol_version = self.protocol_version
+        log.byte_count = self.byte_count
+        log.request_number = self.request_number
         return log
